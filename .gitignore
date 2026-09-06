@@ -1,0 +1,11 @@
+# data / weights / build outputs never belong here
+*.tar
+*.tar.gz
+*.sif
+*.pth
+*.ckpt
+*.npz
+*.zip
+__pycache__/
+*.pyc
+slurm-*.out

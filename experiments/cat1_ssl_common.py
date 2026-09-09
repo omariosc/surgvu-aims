@@ -41,11 +41,11 @@ import cv2
 import numpy as np
 
 # ---------------------------------------------------------------- paths
-CORPUS = "/scratch/sc20osc/miccai-2026/SurgVU/data/surgvu24_videos/surgvu24"
-LABELS = ("/scratch/sc20osc/miccai-2026/SurgVU/data/external/cat2_train_labels/"
+CORPUS = "/scratch/USERNAME/miccai-2026/SurgVU/data/surgvu24_videos/surgvu24"
+LABELS = ("/scratch/USERNAME/miccai-2026/SurgVU/data/external/cat2_train_labels/"
           "SURGVU25_train_labels")
-ANN_POOL = "/scratch/sc20osc/miccai-2026/SurgVU/data/cat1_pool"
-SSL = "/scratch/sc20osc/miccai-2026/SurgVU/data/cat1_ssl"
+ANN_POOL = "/scratch/USERNAME/miccai-2026/SurgVU/data/cat1_pool"
+SSL = "/scratch/USERNAME/miccai-2026/SurgVU/data/cat1_ssl"
 
 # ---------------------------------------------------------------- geometry
 CROP_X0, CROP_X1 = 192, 1088          # measured, uniform across 14 sampled parts

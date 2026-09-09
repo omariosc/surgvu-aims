@@ -19,7 +19,7 @@ Molmo2 call; Capybara used only 5 sampled frames — the point here is a real-vi
 check, not over-engineering).
 
 Molmo2 load/generate logic copied VERBATIM from the validated ORENA runner
-(/users/sc20osc/ORENA/experiments/run_frame_zeroshot_molmo2.py) — trust_remote_code load,
+(/users/USERNAME/ORENA/experiments/run_frame_zeroshot_molmo2.py) — trust_remote_code load,
 single-user-turn chat template (no system role), greedy decode, decode only new tokens.
 """
 
@@ -31,7 +31,7 @@ import time
 from pathlib import Path
 
 # bleu_harness lives in the SurgVU experiments dir
-sys.path.insert(0, "/users/sc20osc/SurgVU/experiments")
+sys.path.insert(0, "/users/USERNAME/SurgVU/experiments")
 import bleu_harness  # noqa: E402
 
 import cv2  # noqa: E402
@@ -39,8 +39,8 @@ import torch  # noqa: E402
 from PIL import Image  # noqa: E402
 
 MODEL_ID = "allenai/Molmo2-8B"
-DATA_DIR = "/users/sc20osc/SurgVU/data"
-OUT_DIR = Path("/scratch/sc20osc/miccai-2026/SurgVU/models")
+DATA_DIR = "/users/USERNAME/SurgVU/data"
+OUT_DIR = Path("/scratch/USERNAME/miccai-2026/SurgVU/models")
 OUT_JSON = OUT_DIR / "molmo2_cat2_bleu.json"
 
 # Length-constraint prompt suffix (constrain length via the prompt only — NO leakage toward

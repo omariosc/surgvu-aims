@@ -45,7 +45,7 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cat1_ssl_common import ANN_POOL, CLASSES, CLS_IDX, SSL
 
-MODELS = "/scratch/sc20osc/miccai-2026/SurgVU/models/cat1_sweep"
+MODELS = "/scratch/USERNAME/miccai-2026/SurgVU/models/cat1_sweep"
 PROPOSERS = {"main": "S0_seed0", **{f"lovo{k}": f"LOVO_v{k}" for k in range(1, 8)}}
 SPLIT_OF = {"main": "main", **{f"lovo{k}": f"lovo{k}" for k in range(1, 8)}}
 TAUS = [0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.50, 0.60]

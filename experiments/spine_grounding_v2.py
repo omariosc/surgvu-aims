@@ -163,7 +163,7 @@ if __name__ == "__main__":
     import argparse, json, glob
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", required=True)
-    ap.add_argument("--samples_dir", default="/users/sc20osc/SurgVU/data")
+    ap.add_argument("--samples_dir", default="/users/USERNAME/SurgVU/data")
     ap.add_argument("--n_frames", type=int, default=4)
     ap.add_argument("--thr", type=float, default=0.3)
     ap.add_argument("--pool", default="mean")

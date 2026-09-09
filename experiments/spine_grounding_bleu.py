@@ -63,10 +63,10 @@ def grounded_predict_factory(ckpt, data_dir, n_frames):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt",
-                    default="/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt")
-    ap.add_argument("--data_dir", default="/users/sc20osc/SurgVU/data")
+                    default="/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt")
+    ap.add_argument("--data_dir", default="/users/USERNAME/SurgVU/data")
     ap.add_argument("--n_frames", type=int, default=8)
-    ap.add_argument("--out", default="/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/grounded_bleu.json")
+    ap.add_argument("--out", default="/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/grounded_bleu.json")
     args = ap.parse_args()
 
     print(f"# REAL-grounded Cat-2 BLEU  ckpt={args.ckpt}")

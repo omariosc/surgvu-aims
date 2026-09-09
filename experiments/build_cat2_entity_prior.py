@@ -19,8 +19,8 @@ originally authored against.
 """
 import csv, glob, json, os, collections
 
-LAB="/scratch/sc20osc/miccai-2026/SurgVU/data/external/cat2_train_labels/SURGVU25_train_labels"
-OUT="/users/sc20osc/SurgVU/surgvu2025-category2-submission/resources/entity_prior.json"
+LAB="/scratch/USERNAME/miccai-2026/SurgVU/data/external/cat2_train_labels/SURGVU25_train_labels"
+OUT="/users/USERNAME/SurgVU/surgvu2025-category2-submission/resources/entity_prior.json"
 
 def hms(x):
     try:

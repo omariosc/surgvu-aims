@@ -57,7 +57,7 @@ from train_spine import Spine, FrameDS, TOOLS
 
 # Verified-working offline load path (ultralytics keys SAM by FILENAME -> symlink to a
 # canonical sam2.1_l.pt name pointing at the HF sam2.1_hiera_large.pt checkpoint).
-SAM_WEIGHTS = "/scratch/sc20osc/miccai-2026/SurgVU/models/sam_weights/sam2.1_l.pt"
+SAM_WEIGHTS = "/scratch/USERNAME/miccai-2026/SurgVU/models/sam_weights/sam2.1_l.pt"
 
 
 def mask_to_box(mask):
@@ -150,7 +150,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", required=True)
     ap.add_argument("--manifest", required=True)
-    ap.add_argument("--out_dir", default="/scratch/sc20osc/miccai-2026/SurgVU/models/seg_vis_sam2")
+    ap.add_argument("--out_dir", default="/scratch/USERNAME/miccai-2026/SurgVU/models/seg_vis_sam2")
     ap.add_argument("--n", type=int, default=600)
     ap.add_argument("--sam_weights", default=SAM_WEIGHTS)  # verified offline SAM2 load path
     ap.add_argument("--seg_conf", type=float, default=0.05)  # ignored (SAM2 is prompt-driven); kept for CLI byte-compat

@@ -48,7 +48,7 @@ import sys
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-os.environ.setdefault("HF_HOME", "/scratch/sc20osc/hf_cache")
+os.environ.setdefault("HF_HOME", "/scratch/USERNAME/hf_cache")
 
 import numpy as np
 import torch
@@ -248,7 +248,7 @@ def main():
     ap.add_argument("--model", default="Qwen/Qwen3-VL-8B-Instruct")
     ap.add_argument("--frames", type=int, nargs="+", default=[1, 5])
     ap.add_argument("--k_samples", type=int, default=5)
-    ap.add_argument("--out", default="/scratch/sc20osc/miccai-2026/SurgVU/models/cat2_hybrid_2026.json")
+    ap.add_argument("--out", default="/scratch/USERNAME/miccai-2026/SurgVU/models/cat2_hybrid_2026.json")
     args = ap.parse_args()
 
     import surgvu26_scorer as S

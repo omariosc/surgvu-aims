@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=64G
 #SBATCH --time=03:00:00
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/v2pick_%j.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/v2pick_%j.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/v2pick_%j.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/v2pick_%j.err
 # NO mail directives (self-monitored). LEVER 2 -- spine-accuracy + final Cat-2 spine pick.
 # Diagnoses the TWO undiagnosed spine checkpoints (spine_full_bal = balanced+focal;
 # spine_tf_efficientnetv2_m = heavier backbone) AND re-runs the Cat-2 V2 grounded-BLEU
@@ -14,16 +14,16 @@
 # confusion and/or raises grounded-BLEU. Picks the FINAL Cat-2 spine = highest grounded-
 # BLEU (tie-break: highest tool excl-floor macro-F1). GPU needed for decode+forward.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
 MAN=$D/frame_manifest_full.csv
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
-M=/scratch/sc20osc/miccai-2026/SurgVU/models
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
+M=/scratch/USERNAME/miccai-2026/SurgVU/models
 
 echo "=== node $(hostname) ==="; nvidia-smi -L
 cd $EXP
@@ -44,7 +44,7 @@ for TAG in spine_full_bal spine_tf_efficientnetv2_m; do
   DIAG=$(dirname $CKPT)/per_class_diag.json
 
   echo "=== STEP B: Cat-2 V2 action-grounded BLEU (${TAG}, nf4_thr0.3_mean) ==="
-  PARSE=/scratch/sc20osc/miccai-2026/SurgVU/logs/v2pick_${SLURM_JOB_ID}_${TAG}.parse
+  PARSE=/scratch/USERNAME/miccai-2026/SurgVU/logs/v2pick_${SLURM_JOB_ID}_${TAG}.parse
   $PY $EXP/spine_grounding_bleu_v2.py --ckpt $CKPT --n_frames 4 --thr 0.3 --pool mean \
       --out $(dirname $CKPT)/grounded_bleu_v2.json 2>&1 | tee $PARSE || echo "bleu failed for $TAG"
   BLEU=$(grep -oE 'GROUNDED_BLEU_V2=[0-9.]+' $PARSE | tail -1 | cut -d= -f2)

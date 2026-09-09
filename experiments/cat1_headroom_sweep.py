@@ -26,20 +26,20 @@ import json
 import os
 import sys
 
-POOL = "/scratch/sc20osc/miccai-2026/SurgVU/data/cat1_pool"
+POOL = "/scratch/USERNAME/miccai-2026/SurgVU/data/cat1_pool"
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--arm", required=True, help="arm name (used for run dir + result key)")
     ap.add_argument("--split", default="main", help="main | lovo1..lovo7")
-    ap.add_argument("--model", default="/scratch/sc20osc/AILET/from_pc/weights/yolo26m.pt")
+    ap.add_argument("--model", default="/scratch/USERNAME/AILET/from_pc/weights/yolo26m.pt")
     ap.add_argument("--epochs", type=int, default=60)
     ap.add_argument("--imgsz", type=int, default=640)
     ap.add_argument("--batch", type=int, default=16)
     ap.add_argument("--seed", type=int, default=0)
-    ap.add_argument("--project", default="/scratch/sc20osc/miccai-2026/SurgVU/models/cat1_sweep")
-    ap.add_argument("--out_dir", default="/scratch/sc20osc/miccai-2026/SurgVU/logs/cat1_sweep")
+    ap.add_argument("--project", default="/scratch/USERNAME/miccai-2026/SurgVU/models/cat1_sweep")
+    ap.add_argument("--out_dir", default="/scratch/USERNAME/miccai-2026/SurgVU/logs/cat1_sweep")
     args = ap.parse_args()
 
     support = json.load(open(f"{POOL}/class_support.json"))

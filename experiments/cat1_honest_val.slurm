@@ -7,21 +7,21 @@
 #SBATCH --mem=32G
 #SBATCH --time=02:00:00
 #SBATCH --array=0-4
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/cat1_honest_%A_%a.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/cat1_honest_%A_%a.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/cat1_honest_%A_%a.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/cat1_honest_%A_%a.err
 # HONEST Cat-1 re-validation: trained YOLO detectors vs the REAL human-bbox public
 # 2024 Cat-1 test set (7 held-out videos, COCO mAP@[.5:.95] = the grand-challenge metric).
 # Replaces the self-consistency-vs-Grad-CAM mAP (0.7746-0.9788, no human GT, UNVALIDATED).
 # Array tests whether self-consistency gains transfer to real boxes (diagnostic).
 set -e
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
 export OMP_NUM_THREADS=4
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-M=/scratch/sc20osc/miccai-2026/SurgVU/models
-LOG=/scratch/sc20osc/miccai-2026/SurgVU/logs
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+M=/scratch/USERNAME/miccai-2026/SurgVU/models
+LOG=/scratch/USERNAME/miccai-2026/SurgVU/logs
 
 WEIGHTS=(
   "$M/detector/train/weights/best.pt"

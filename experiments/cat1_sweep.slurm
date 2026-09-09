@@ -7,23 +7,23 @@
 #SBATCH --mem=64G
 #SBATCH --time=10:00:00
 #SBATCH --array=0-7%2
-#SBATCH --output=/users/sc20osc/SurgVU/experiments/logs/c1sweep_%A_%a.out
-#SBATCH --error=/users/sc20osc/SurgVU/experiments/logs/c1sweep_%A_%a.out
+#SBATCH --output=/users/USERNAME/SurgVU/experiments/logs/c1sweep_%A_%a.out
+#SBATCH --error=/users/USERNAME/SurgVU/experiments/logs/c1sweep_%A_%a.out
 
 # SurgVU Cat-1 headroom sweep. ONE KNOB PER ARM, all on the SAME video-disjoint
 # `main` split (train v1-5, val v6+7) that produced the honest 0.1470 baseline.
 # nice=60 so ORENA (priority ~233-242) always wins contention; %2 caps us at two
 # concurrent GPUs.
 set -uo pipefail
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
 export YOLO_OFFLINE=1
 export OMP_NUM_THREADS=4
 
-PY=/scratch/sc20osc/surgvu_env/bin/python
-W=/scratch/sc20osc/AILET/from_pc/weights
-cd /users/sc20osc/SurgVU/experiments
+PY=/scratch/USERNAME/surgvu_env/bin/python
+W=/scratch/USERNAME/AILET/from_pc/weights
+cd /users/USERNAME/SurgVU/experiments
 
 # arm | model | epochs | imgsz | seed
 ARMS=(

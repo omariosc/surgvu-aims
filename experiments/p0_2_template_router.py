@@ -144,7 +144,7 @@ def main():
     for cid in sorted(GROUNDING):
         # reload the question for display
         import json
-        q = json.load(open(f"/users/sc20osc/SurgVU/data/{cid}/{cid}_question.json"))
+        q = json.load(open(f"/users/USERNAME/SurgVU/data/{cid}/{cid}_question.json"))
         print(f"  {cid}: bucket={_route(q):10s} | Q={q!r}")
     print()
     mean, per_case = evaluate(predict, verbose=True)

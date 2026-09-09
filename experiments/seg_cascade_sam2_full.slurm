@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=80G
 #SBATCH --time=18:00:00
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/sam2full_%j.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/sam2full_%j.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/sam2full_%j.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/sam2full_%j.err
 # NO mail directives (self-monitored). FULL SAM2-prompted HRI_MV #1 seg-cascade
 # (arXiv 2305.07152): (a) seg_pseudoboxes WITH SAM2 1500 frames
 #   (b) track_propagate 300 windows x 8  (c) YOLO detector 60 ep on the SAM2 pseudo-boxes
@@ -22,20 +22,20 @@
 # INODE-SAFE: extracted/temp artifacts routed to /tmp (cleaned by the EXIT trap below);
 # only the bounded cam_*.png set (1500) is written to /scratch out_dirs, as before.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
 export YOLO_CONFIG_DIR=/tmp/ultralytics_${SLURM_JOB_ID}
 mkdir -p /tmp/surgvu_sam_${SLURM_JOB_ID} /tmp/ultralytics_${SLURM_JOB_ID}
 trap 'rm -rf /tmp/surgvu_sam_${SLURM_JOB_ID} /tmp/ultralytics_${SLURM_JOB_ID}' EXIT
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
-CKPT=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt
-M=/scratch/sc20osc/miccai-2026/SurgVU/models
-SAMW=/scratch/sc20osc/miccai-2026/SurgVU/models/sam_weights/sam2.1_l.pt
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
+CKPT=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt
+M=/scratch/USERNAME/miccai-2026/SurgVU/models
+SAMW=/scratch/USERNAME/miccai-2026/SurgVU/models/sam_weights/sam2.1_l.pt
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
 SEGDIR=$M/seg_vis_sam2_full
 TRKDIR=$M/track_vis_sam2_full
 DETOUT=$M/detector_sam2_full
@@ -56,7 +56,7 @@ $PY $EXP/track_propagate.py --ckpt $CKPT --manifest $D/frame_manifest_full.csv \
 echo "=== (c) YOLO detector on SAM2 seg pseudo-boxes (60 ep, heavy aug) ==="
 set +e
 $PY $EXP/train_detector.py --pseudo $SEGDIR/seg_pseudo_boxes.json --img_dir $SEGDIR \
-    --out_root $DETOUT --weights /scratch/sc20osc/AILET/from_pc/weights/yolo26m.pt \
+    --out_root $DETOUT --weights /scratch/USERNAME/AILET/from_pc/weights/yolo26m.pt \
     --epochs 60 --mosaic 1.0 --mixup 0.1 --hsv_h 0.015 --hsv_s 0.7 --hsv_v 0.4 \
     --degrees 5.0 --translate 0.1 --scale 0.5 --fliplr 0.5 2>&1 | tee -a $PARSE
 set -e

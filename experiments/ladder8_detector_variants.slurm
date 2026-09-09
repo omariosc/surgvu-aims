@@ -6,8 +6,8 @@
 #SBATCH --mem=64G
 #SBATCH --time=08:00:00
 #SBATCH --array=0-3
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder8_%A_%a.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder8_%A_%a.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder8_%A_%a.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder8_%A_%a.err
 # NO mail directives (self-monitored). NEW LEVER D (brief lever 4) -- Cat-1 detector
 # VARIANTS: pseudo-box confidence-threshold x YOLO size. Array of 4 cells:
 #   thr in {0.3,0.5} (Grad-CAM CAM threshold for pseudo-box extraction)
@@ -18,19 +18,19 @@
 # KILL CRITERION: no cell's mAP exceeds the ladder3 single-config baseline meaningfully
 #   -> localisation supervision (Grad-CAM pseudo-boxes) is the wall, not detector capacity.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
-CKPT=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
+CKPT=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
 
 THRS=(0.3 0.5)
-YOLOS=(/scratch/sc20osc/AILET/from_pc/weights/yolo11n.pt /scratch/sc20osc/AILET/from_pc/weights/yolo26m.pt)
+YOLOS=(/scratch/USERNAME/AILET/from_pc/weights/yolo11n.pt /scratch/USERNAME/AILET/from_pc/weights/yolo26m.pt)
 NY=${#YOLOS[@]}
 TI=$(( SLURM_ARRAY_TASK_ID / NY ))
 YI=$(( SLURM_ARRAY_TASK_ID % NY ))
@@ -38,9 +38,9 @@ THR=${THRS[$TI]}
 YOLO=${YOLOS[$YI]}
 YTAG=$(basename $YOLO .pt)
 CELL="thr${THR}_${YTAG}"
-CAM=/scratch/sc20osc/miccai-2026/SurgVU/models/cam_thr${THR}
-OUT=/scratch/sc20osc/miccai-2026/SurgVU/models/detector_$CELL
-PARSE=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder8_${SLURM_JOB_ID}.parse
+CAM=/scratch/USERNAME/miccai-2026/SurgVU/models/cam_thr${THR}
+OUT=/scratch/USERNAME/miccai-2026/SurgVU/models/detector_$CELL
+PARSE=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder8_${SLURM_JOB_ID}.parse
 
 echo "=== node $(hostname)  cell=$CELL (thr=$THR yolo=$YTAG) ==="; nvidia-smi -L
 cd $EXP

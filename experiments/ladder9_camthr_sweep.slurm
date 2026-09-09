@@ -6,8 +6,8 @@
 #SBATCH --mem=64G
 #SBATCH --time=08:00:00
 #SBATCH --array=0-1
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder9_%A_%a.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder9_%A_%a.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder9_%A_%a.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder9_%A_%a.err
 # LEVER 1 (push the winning axis: HIGHER Grad-CAM threshold). ladder8 showed CAM
 # thr 0.3->0.5 monotonically improved mAP at yolo26m (0.6869 -> 0.7746). This sweeps
 # thr in {0.6, 0.7} at yolo26m (the winning detector) to test whether even cleaner /
@@ -17,25 +17,25 @@
 # KILL CRITERION: if 0.6/0.7 mAP < the thr0.5 baseline 0.7746 (boxes too sparse) ->
 #   log REFUTED and confirm thr0.5 as the pseudo-box-threshold optimum.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
-CKPT=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
+CKPT=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
 
 THRS=(0.6 0.7)
 THR=${THRS[$SLURM_ARRAY_TASK_ID]}
-YOLO=/scratch/sc20osc/AILET/from_pc/weights/yolo26m.pt
+YOLO=/scratch/USERNAME/AILET/from_pc/weights/yolo26m.pt
 YTAG=$(basename $YOLO .pt)
 CELL="thr${THR}_${YTAG}"
-CAM=/scratch/sc20osc/miccai-2026/SurgVU/models/cam_thr${THR}
-OUT=/scratch/sc20osc/miccai-2026/SurgVU/models/detector_$CELL
-PARSE=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder9_${SLURM_JOB_ID}_${SLURM_ARRAY_TASK_ID}.parse
+CAM=/scratch/USERNAME/miccai-2026/SurgVU/models/cam_thr${THR}
+OUT=/scratch/USERNAME/miccai-2026/SurgVU/models/detector_$CELL
+PARSE=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder9_${SLURM_JOB_ID}_${SLURM_ARRAY_TASK_ID}.parse
 
 echo "=== node $(hostname)  cell=$CELL (thr=$THR yolo=$YTAG) ==="; nvidia-smi -L
 cd $EXP

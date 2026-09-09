@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --time=02:00:00
-#SBATCH --output=/users/sc20osc/SurgVU/experiments/logs/c2hyb_%j.out
-#SBATCH --error=/users/sc20osc/SurgVU/experiments/logs/c2hyb_%j.out
+#SBATCH --output=/users/USERNAME/SurgVU/experiments/logs/c2hyb_%j.out
+#SBATCH --error=/users/USERNAME/SurgVU/experiments/logs/c2hyb_%j.out
 
 # SurgVU 2026 Cat-2: VLM-as-short-span-extractor -> syntactic template.
 # Tests the architecture implied by 6980942: the best zero-shot free-text config
@@ -16,13 +16,13 @@
 # Includes the no-vision template control that isolates the value of vision.
 # nice=60 => ORENA (priority ~233-242) always wins contention.  ~15 min.
 set -uo pipefail
-export HF_HOME=/scratch/sc20osc/hf_cache
+export HF_HOME=/scratch/USERNAME/hf_cache
 export TRANSFORMERS_OFFLINE=1
 export HF_HUB_OFFLINE=1
 export TOKENIZERS_PARALLELISM=false
 
-PY=/scratch/sc20osc/surgvu_env/bin/python
-cd /users/sc20osc/SurgVU/experiments
+PY=/scratch/USERNAME/surgvu_env/bin/python
+cd /users/USERNAME/SurgVU/experiments
 
 MODEL="${MODEL:-Qwen/Qwen3-VL-8B-Instruct}"
 

@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=48G
 #SBATCH --time=02:00:00
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder9_%j.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder9_%j.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder9_%j.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder9_%j.err
 # NO mail directives (self-monitored). NEW RESEARCH-BACKED LEVERS (DEEP_RESEARCH_CAT2),
 # distinct from the refill agent's variant/detector sweeps:
 #   (1) qcond_retrieval_bleu  -- question-conditioned temporal retrieval (top-k by Q-relevance)
@@ -18,16 +18,16 @@
 # Each appends ONE [SurgVU][jobid] line to AUTONOMOUS_RESULTS.md. Does NOT touch the spine,
 # the experiment-log scripts the refill agent owns, or any aielt_*/jig_* job.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/models/logs   # FIX 2026-06-20: $MODELDIR/../logs tee target (6204346 died here AFTER step1 completed; steps 2+3 were skipped)
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/models/logs   # FIX 2026-06-20: $MODELDIR/../logs tee target (6204346 died here AFTER step1 completed; steps 2+3 were skipped)
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-CKPT=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt
-MODELDIR=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+CKPT=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt
+MODELDIR=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
 J=${SLURM_JOB_ID}
 
 echo "=== node $(hostname) ==="; nvidia-smi -L
@@ -36,11 +36,11 @@ cd $EXP
 # ---- (0) dump the REAL spine grounding (winning nf4_thr0.3_mean) for the leakage check ----
 $PY - "$CKPT" "$MODELDIR/real_grounding.json" <<'PYEOF'
 import sys, os, glob, json
-sys.path.insert(0, "/users/sc20osc/SurgVU/experiments")
+sys.path.insert(0, "/users/USERNAME/SurgVU/experiments")
 import spine_grounding_v2 as sg2
 ckpt, out = sys.argv[1], sys.argv[2]
 cache, g = {}, {}
-for d in sorted(glob.glob("/users/sc20osc/SurgVU/data/case*")):
+for d in sorted(glob.glob("/users/USERNAME/SurgVU/data/case*")):
     cid = os.path.basename(d)
     qf, vf = os.path.join(d, f"{cid}_question.json"), os.path.join(d, f"{cid}.mp4")
     if not (os.path.exists(qf) and os.path.exists(vf)):

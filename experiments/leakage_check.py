@@ -57,7 +57,7 @@ from nltk.translate.bleu_score import SmoothingFunction, sentence_bleu
 import bleu_harness
 import p0_2_template_router as tr
 
-DATA = "/users/sc20osc/SurgVU/data"
+DATA = "/users/USERNAME/SurgVU/data"
 
 
 # ---------- (A) independent scorer clone (NOT importing bleu_harness internals) ----------
@@ -81,7 +81,7 @@ def clone_bleu_mean(predict_fn, data_dir=DATA):
 # produced (the same {present,tool,organ} dict per case) if cached; otherwise we use the
 # P0.2 hand-set GROUNDING as the stand-in (which is the upper bound the spine approaches).
 def load_real_grounding():
-    cache_path = "/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/real_grounding.json"
+    cache_path = "/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/real_grounding.json"
     if os.path.exists(cache_path):
         return json.load(open(cache_path)), "spine-cached"
     return dict(tr.GROUNDING), "p0.2-handset (spine upper-bound)"

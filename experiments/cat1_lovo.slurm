@@ -7,8 +7,8 @@
 #SBATCH --mem=64G
 #SBATCH --time=06:00:00
 #SBATCH --array=0-6%2
-#SBATCH --output=/users/sc20osc/SurgVU/experiments/logs/c1lovo_%A_%a.out
-#SBATCH --error=/users/sc20osc/SurgVU/experiments/logs/c1lovo_%A_%a.out
+#SBATCH --output=/users/USERNAME/SurgVU/experiments/logs/c1lovo_%A_%a.out
+#SBATCH --error=/users/USERNAME/SurgVU/experiments/logs/c1lovo_%A_%a.out
 
 # SurgVU Cat-1 INSTRUMENT FIX — 7-fold leave-one-video-out at the baseline config.
 #
@@ -22,15 +22,15 @@
 # (present in both v6 and v7), and yields a 7-fold error bar instead of a single
 # point estimate.  nice=90 => yields to ORENA AND to the headroom sweep.
 set -uo pipefail
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
 export YOLO_OFFLINE=1
 export OMP_NUM_THREADS=4
 
-PY=/scratch/sc20osc/surgvu_env/bin/python
-W=/scratch/sc20osc/AILET/from_pc/weights
-cd /users/sc20osc/SurgVU/experiments
+PY=/scratch/USERNAME/surgvu_env/bin/python
+W=/scratch/USERNAME/AILET/from_pc/weights
+cd /users/USERNAME/SurgVU/experiments
 
 FOLD=$(( SLURM_ARRAY_TASK_ID + 1 ))
 

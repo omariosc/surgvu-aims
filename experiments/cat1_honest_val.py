@@ -19,7 +19,7 @@ import cv2
 from pycocotools.coco import COCO
 from pycocotools.cocoeval import COCOeval
 
-EXT = "/scratch/sc20osc/miccai-2026/SurgVU/data/external/cat1_test_set"
+EXT = "/scratch/USERNAME/miccai-2026/SurgVU/data/external/cat1_test_set"
 VIDEOS = [1, 2, 3, 4, 5, 6, 7]
 
 # detector class order == train_spine.TOOLS == data.yaml names (underscored)
@@ -164,9 +164,9 @@ def run(weights, conf, imgsz, out):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--weights", default="/scratch/sc20osc/miccai-2026/SurgVU/models/detector_thr0.7_yolo26m_BEST_long120aug/train/weights/best.pt")
+    ap.add_argument("--weights", default="/scratch/USERNAME/miccai-2026/SurgVU/models/detector_thr0.7_yolo26m_BEST_long120aug/train/weights/best.pt")
     ap.add_argument("--conf", type=float, default=0.001)
     ap.add_argument("--imgsz", type=int, default=640)
-    ap.add_argument("--out", default="/scratch/sc20osc/miccai-2026/SurgVU/logs/cat1_honest_val.json")
+    ap.add_argument("--out", default="/scratch/USERNAME/miccai-2026/SurgVU/logs/cat1_honest_val.json")
     a = ap.parse_args()
     run(a.weights, a.conf, a.imgsz, a.out)

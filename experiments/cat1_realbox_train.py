@@ -36,7 +36,7 @@ import sys
 import cv2
 import numpy as np
 
-EXT = "/scratch/sc20osc/miccai-2026/SurgVU/data/external/cat1_test_set"
+EXT = "/scratch/USERNAME/miccai-2026/SurgVU/data/external/cat1_test_set"
 VIDEOS = [1, 2, 3, 4, 5, 6, 7]
 
 
@@ -104,14 +104,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--train_videos", type=int, nargs="+", default=[1, 2, 3, 4, 5])
     ap.add_argument("--val_videos", type=int, nargs="+", default=[6, 7])
-    ap.add_argument("--model", default="/scratch/sc20osc/miccai-2026/SurgVU/models/yolo26m.pt")
+    ap.add_argument("--model", default="/scratch/USERNAME/miccai-2026/SurgVU/models/yolo26m.pt")
     ap.add_argument("--epochs", type=int, default=60)
     ap.add_argument("--imgsz", type=int, default=640)
     ap.add_argument("--batch", type=int, default=16)
     ap.add_argument("--stride", type=int, default=1)
-    ap.add_argument("--root", default="/scratch/sc20osc/miccai-2026/SurgVU/data/cat1_realbox")
-    ap.add_argument("--out", default="/scratch/sc20osc/miccai-2026/SurgVU/logs/cat1_realbox.json")
-    ap.add_argument("--project", default="/scratch/sc20osc/miccai-2026/SurgVU/models/cat1_realbox")
+    ap.add_argument("--root", default="/scratch/USERNAME/miccai-2026/SurgVU/data/cat1_realbox")
+    ap.add_argument("--out", default="/scratch/USERNAME/miccai-2026/SurgVU/logs/cat1_realbox.json")
+    ap.add_argument("--project", default="/scratch/USERNAME/miccai-2026/SurgVU/models/cat1_realbox")
     args = ap.parse_args()
 
     assert not (set(args.train_videos) & set(args.val_videos)), "train/val videos must be disjoint"

@@ -272,8 +272,8 @@ def evaluate(model, dl, device):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--manifest", default="/scratch/sc20osc/miccai-2026/SurgVU/data/frame_manifest.csv")
-    ap.add_argument("--out_dir", default="/scratch/sc20osc/miccai-2026/SurgVU/models/spine")
+    ap.add_argument("--manifest", default="/scratch/USERNAME/miccai-2026/SurgVU/data/frame_manifest.csv")
+    ap.add_argument("--out_dir", default="/scratch/USERNAME/miccai-2026/SurgVU/models/spine")
     ap.add_argument("--img_size", type=int, default=384)
     ap.add_argument("--epochs", type=int, default=6)
     ap.add_argument("--bs", type=int, default=64)

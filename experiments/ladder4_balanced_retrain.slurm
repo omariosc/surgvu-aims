@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=80G
 #SBATCH --time=24:00:00
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder4_%j.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder4_%j.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder4_%j.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder4_%j.err
 # NO mail directives (self-monitored). LADDER STEP 4 -- class-balanced retrain.
 # Inverse-freq WeightedRandomSampler + multi-label focal loss, targeting the rare
 # tools/tasks the diagnostic flagged, EXCLUDING the 3 zero-val data-floor tools
@@ -16,18 +16,18 @@
 # KILL CRITERION (pre-registered): recoverable macro-F1 must rise >= +0.05 vs the
 # uniform baseline, else balancing is REFUTED (it's data-floor, not loss).
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
 MAN=$D/frame_manifest_full.csv
-OUT=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full_bal
-BASE_DIAG=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/per_class_diag.json
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
-PARSE=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder4_${SLURM_JOB_ID}.parse
+OUT=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full_bal
+BASE_DIAG=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/per_class_diag.json
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
+PARSE=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder4_${SLURM_JOB_ID}.parse
 
 echo "=== node $(hostname) ==="; nvidia-smi -L
 cd $EXP
@@ -46,7 +46,7 @@ $PY $EXP/class_distribution.py --manifest $MAN
 $PY $EXP/diagnose_spine.py --ckpt $OUT/spine_best.pt --manifest $MAN --max_val 40000
 
 echo "=== compare recoverable macro-F1 vs baseline ==="
-CMP=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder4_${SLURM_JOB_ID}_cmp.py
+CMP=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder4_${SLURM_JOB_ID}_cmp.py
 cat > $CMP <<'PYEOF'
 import json, sys, os
 new_p, base_p = sys.argv[1], sys.argv[2]

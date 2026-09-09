@@ -5,25 +5,25 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=64G
 #SBATCH --time=02:00:00
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/diag_%j.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/diag_%j.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/diag_%j.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/diag_%j.err
 # NO mail directives (self-monitored). Per-class auto-diagnosis of a spine ckpt.
 # GPU is needed for mp4 decode + forward pass over the val split -> run via sbatch,
 # NEVER on the login node. Reads the FULL-scale job 5998329 ckpt by default; pass
 # CKPT=... as the 1st arg to diagnose any other run.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
-CKPT=${1:-/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt}
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
+CKPT=${1:-/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt}
 MAN=${2:-$D/frame_manifest_full.csv}
 
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
-LOG=/scratch/sc20osc/miccai-2026/SurgVU/logs/diag_${SLURM_JOB_ID}.out
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
+LOG=/scratch/USERNAME/miccai-2026/SurgVU/logs/diag_${SLURM_JOB_ID}.out
 
 echo "=== node $(hostname) ==="; nvidia-smi -L
 echo "=== STEP 1 (data) class distribution ==="

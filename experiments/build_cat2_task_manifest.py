@@ -14,10 +14,10 @@ in the training job (this is CPU-only manifest construction, login-node safe).
 """
 import csv, glob, json, os, collections
 
-LAB="/scratch/sc20osc/miccai-2026/SurgVU/data/external/cat2_train_labels/SURGVU25_train_labels"
+LAB="/scratch/USERNAME/miccai-2026/SurgVU/data/external/cat2_train_labels/SURGVU25_train_labels"
 # the real corpus: surgvu24/case_XXX/case_XXX_video_part_NNN.mp4 (155 cases, matches the labels 1:1)
-VIDDIR="/scratch/sc20osc/miccai-2026/SurgVU/data/surgvu24_videos/surgvu24"
-OUT="/scratch/sc20osc/miccai-2026/SurgVU/data/cat2_task_manifest.csv"
+VIDDIR="/scratch/USERNAME/miccai-2026/SurgVU/data/surgvu24_videos/surgvu24"
+OUT="/scratch/USERNAME/miccai-2026/SurgVU/data/cat2_task_manifest.csv"
 
 def canon(t):
     return " ".join(t.strip().lower().split())

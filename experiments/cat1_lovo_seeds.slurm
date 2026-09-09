@@ -7,8 +7,8 @@
 #SBATCH --mem=64G
 #SBATCH --time=06:00:00
 #SBATCH --array=0-13%4
-#SBATCH --output=/users/sc20osc/SurgVU/experiments/logs/lovoseed_%A_%a.out
-#SBATCH --error=/users/sc20osc/SurgVU/experiments/logs/lovoseed_%A_%a.out
+#SBATCH --output=/users/USERNAME/SurgVU/experiments/logs/lovoseed_%A_%a.out
+#SBATCH --error=/users/USERNAME/SurgVU/experiments/logs/lovoseed_%A_%a.out
 
 # ============================================================================
 # THE FOLD-NOISE ESTIMATE.  Nothing else here; this job exists only to give the
@@ -29,15 +29,15 @@
 # Both must hold on UNSELECTED last.pt.  best.pt is reported but never gates.
 # ============================================================================
 set -uo pipefail
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
 export YOLO_OFFLINE=1
 export OMP_NUM_THREADS=4
 
-PY=/scratch/sc20osc/surgvu_env/bin/python
-W=/scratch/sc20osc/AILET/from_pc/weights
-cd /users/sc20osc/SurgVU/experiments
+PY=/scratch/USERNAME/surgvu_env/bin/python
+W=/scratch/USERNAME/AILET/from_pc/weights
+cd /users/USERNAME/SurgVU/experiments
 
 FOLD=$(( SLURM_ARRAY_TASK_ID % 7 + 1 ))
 SEED=$(( SLURM_ARRAY_TASK_ID / 7 + 1 ))

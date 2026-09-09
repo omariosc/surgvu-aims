@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=64G
 #SBATCH --time=12:00:00
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder11_%j.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder11_%j.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder11_%j.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder11_%j.err
 # LEVER 3 (combine the two winners -> FINAL Cat-1 detector pick). Chained afterok on
 # LEVER 1 (ladder9) so the thr0.6/0.7 cam dirs + their mAP result lines exist. This
 # cell DISCOVERS the best CAM threshold among {0.5,0.6,0.7} from the logged 40-ep
@@ -15,17 +15,17 @@
 # KILL CRITERION: if best-config mAP <= the thr0.5_yolo26m baseline 0.7746 -> the
 #   combined winners do not stack; the wall is the Grad-CAM localisation supervision.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
-CKPT=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
-YOLO=/scratch/sc20osc/AILET/from_pc/weights/yolo26m.pt
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
+CKPT=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
+YOLO=/scratch/USERNAME/AILET/from_pc/weights/yolo26m.pt
 YTAG=$(basename $YOLO .pt)
 
 echo "=== node $(hostname)  ladder11 best-config ==="; nvidia-smi -L
@@ -47,9 +47,9 @@ echo "=== discovered best CAM threshold = $BEST_THR (base-config mAP=$BEST_MAP) 
 
 THR=$BEST_THR
 CELL="thr${THR}_${YTAG}_BEST_long120aug"
-CAM=/scratch/sc20osc/miccai-2026/SurgVU/models/cam_thr${THR}
-OUT=/scratch/sc20osc/miccai-2026/SurgVU/models/detector_$CELL
-PARSE=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder11_${SLURM_JOB_ID}.parse
+CAM=/scratch/USERNAME/miccai-2026/SurgVU/models/cam_thr${THR}
+OUT=/scratch/USERNAME/miccai-2026/SurgVU/models/detector_$CELL
+PARSE=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder11_${SLURM_JOB_ID}.parse
 mkdir -p $OUT
 
 # ensure the cam dir for the chosen threshold exists (ladder9 builds 0.6/0.7; 0.5 preexists)

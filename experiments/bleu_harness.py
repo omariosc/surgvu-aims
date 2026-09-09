@@ -46,7 +46,7 @@ def bleu_max_over_refs(references: List[str], hypothesis: str) -> float:
     return max(bleu_one(ref, hypothesis) for ref in references)
 
 
-def load_cases(data_dir: str = "/users/sc20osc/SurgVU/data"):
+def load_cases(data_dir: str = "/users/USERNAME/SurgVU/data"):
     """Yield (case_id, question_str, [refs]) for each caseXXX dir."""
     cases = []
     for d in sorted(glob.glob(os.path.join(data_dir, "case*"))):
@@ -63,7 +63,7 @@ def load_cases(data_dir: str = "/users/sc20osc/SurgVU/data"):
     return cases
 
 
-def evaluate(predict_fn, data_dir: str = "/users/sc20osc/SurgVU/data", verbose: bool = True):
+def evaluate(predict_fn, data_dir: str = "/users/USERNAME/SurgVU/data", verbose: bool = True):
     """Run ``predict_fn(question, case_id) -> answer`` over every case and report
     per-question max-BLEU + the mean. Returns (mean, per_case list)."""
     cases = load_cases(data_dir)

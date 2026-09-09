@@ -29,7 +29,7 @@ RARE_VAL = 1000
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--manifest",
-                    default="/users/sc20osc/SurgVU/data/frame_manifest_full.csv")
+                    default="/users/USERNAME/SurgVU/data/frame_manifest_full.csv")
     args = ap.parse_args()
 
     tool_tr = collections.Counter(); tool_va = collections.Counter()

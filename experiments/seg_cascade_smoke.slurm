@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=64G
 #SBATCH --time=02:00:00
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/segsmoke_%j.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/segsmoke_%j.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/segsmoke_%j.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/segsmoke_%j.err
 # NO mail directives (self-monitored). SMOKE of the HRI_MV #1 seg-cascade (arXiv 2305.07152):
 #   (a) seg_pseudoboxes  (b) track_propagate  (c) YOLO detector  (d) WBF fusion
 # Small scale: 200 seg frames + 20 track windows + 12-ep YOLO -> proves the cascade runs
@@ -14,17 +14,17 @@
 # (mmdet/mmcv has no prebuilt wheel for torch2.6+cu124; YOLO is the existing clean-licensed
 # submission detector). All mAP = self-consistency vs the SEG pseudo-box GT (NO human bbox GT).
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
-CKPT=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt
-M=/scratch/sc20osc/miccai-2026/SurgVU/models
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
+CKPT=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt
+M=/scratch/USERNAME/miccai-2026/SurgVU/models
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
 SEGDIR=$M/seg_vis_smoke
 TRKDIR=$M/track_vis_smoke
 DETOUT=$M/detector_seg_smoke
@@ -45,7 +45,7 @@ $PY $EXP/track_propagate.py --ckpt $CKPT --manifest $D/frame_manifest_full.csv \
 echo "=== (c) YOLO detector on seg pseudo-boxes (12 ep) ==="
 set +e
 $PY $EXP/train_detector.py --pseudo $SEGDIR/seg_pseudo_boxes.json --img_dir $SEGDIR \
-    --out_root $DETOUT --weights /scratch/sc20osc/AILET/from_pc/weights/yolo26m.pt \
+    --out_root $DETOUT --weights /scratch/USERNAME/AILET/from_pc/weights/yolo26m.pt \
     --epochs 12 2>&1 | tee -a $PARSE
 set -e
 

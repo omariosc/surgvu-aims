@@ -53,13 +53,13 @@ def grounded_predict_factory(ckpt, data_dir, n_frames, thr, pool):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt",
-                    default="/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt")
-    ap.add_argument("--data_dir", default="/users/sc20osc/SurgVU/data")
+                    default="/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt")
+    ap.add_argument("--data_dir", default="/users/USERNAME/SurgVU/data")
     ap.add_argument("--n_frames", type=int, default=4)
     ap.add_argument("--thr", type=float, default=0.3)   # None via --thr -1 -> ckpt thr
     ap.add_argument("--pool", default="mean")
     ap.add_argument("--out",
-                    default="/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/grounded_bleu_v2.json")
+                    default="/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/grounded_bleu_v2.json")
     args = ap.parse_args()
     thr = None if args.thr is not None and args.thr < 0 else args.thr
 

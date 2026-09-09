@@ -17,8 +17,8 @@ import numpy as np, cv2, torch, torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import torchvision as tv
 
-LAB="/scratch/sc20osc/miccai-2026/SurgVU/data/external/cat2_train_labels/SURGVU25_train_labels"
-VID="/scratch/sc20osc/miccai-2026/SurgVU/data/surgvu24_videos/surgvu24"
+LAB="/scratch/USERNAME/miccai-2026/SurgVU/data/external/cat2_train_labels/SURGVU25_train_labels"
+VID="/scratch/USERNAME/miccai-2026/SurgVU/data/surgvu24_videos/surgvu24"
 TASKS=["other","range of motion","rectal artery/vein","retraction and collision avoidance",
        "skills application","suspensory ligaments","suturing","uterine horn"]
 T2I={t:i for i,t in enumerate(TASKS)}
@@ -75,7 +75,7 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--epochs",type=int,default=8); ap.add_argument("--k",type=int,default=4)
     ap.add_argument("--bs",type=int,default=8); ap.add_argument("--lr",type=float,default=1e-4)
-    ap.add_argument("--out",default="/scratch/sc20osc/miccai-2026/SurgVU/models/cat2_task_cls")
+    ap.add_argument("--out",default="/scratch/USERNAME/miccai-2026/SurgVU/models/cat2_task_cls")
     a=ap.parse_args()
     os.makedirs(a.out,exist_ok=True)
     segs=load_segments(); cases=sorted({s[0] for s in segs})

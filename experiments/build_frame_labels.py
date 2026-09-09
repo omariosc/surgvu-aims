@@ -194,9 +194,9 @@ def find_video(videos_dir, case_id, part):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--labels_dir", default="/scratch/sc20osc/miccai-2026/SurgVU/data/surgvu24_labels/labels")
-    ap.add_argument("--videos_dir", default="/scratch/sc20osc/miccai-2026/SurgVU/data/surgvu24_videos")
-    ap.add_argument("--out_manifest", default="/scratch/sc20osc/miccai-2026/SurgVU/data/frame_manifest.csv")
+    ap.add_argument("--labels_dir", default="/scratch/USERNAME/miccai-2026/SurgVU/data/surgvu24_labels/labels")
+    ap.add_argument("--videos_dir", default="/scratch/USERNAME/miccai-2026/SurgVU/data/surgvu24_videos")
+    ap.add_argument("--out_manifest", default="/scratch/USERNAME/miccai-2026/SurgVU/data/frame_manifest.csv")
     ap.add_argument("--stride_sec", type=float, default=2.0,
                     help="sample one frame every N seconds inside labelled spans")
     ap.add_argument("--val_frac", type=float, default=0.15)

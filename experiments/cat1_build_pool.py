@@ -35,8 +35,8 @@ from collections import Counter
 
 import cv2
 
-EXT = "/scratch/sc20osc/miccai-2026/SurgVU/data/external/cat1_test_set"
-POOL = "/scratch/sc20osc/miccai-2026/SurgVU/data/cat1_pool"
+EXT = "/scratch/USERNAME/miccai-2026/SurgVU/data/external/cat1_test_set"
+POOL = "/scratch/USERNAME/miccai-2026/SurgVU/data/cat1_pool"
 VIDEOS = [1, 2, 3, 4, 5, 6, 7]
 MAIN_TRAIN = [1, 2, 3, 4, 5]
 MAIN_VAL = [6, 7]

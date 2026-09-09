@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=80G
 #SBATCH --time=18:00:00
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/segfull_%j.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/segfull_%j.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/segfull_%j.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/segfull_%j.err
 # NO mail directives (self-monitored). FULL HRI_MV #1 seg-cascade (arXiv 2305.07152):
 #   (a) seg_pseudoboxes 1500 frames  (b) track_propagate 300 windows x 8
 #   (c) YOLO detector 60 ep on the SEG pseudo-boxes  (d) WBF detection+tracking fusion
@@ -18,17 +18,17 @@
 # KILL CRITERION: seg pseudo-boxes NOT tighter/cleaner than Grad-CAM (area >=0.1538,
 #   not single-instance) AND WBF_delta <= 0 -> the seg-cascade lever is REFUTED.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
-CKPT=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt
-M=/scratch/sc20osc/miccai-2026/SurgVU/models
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
+CKPT=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt
+M=/scratch/USERNAME/miccai-2026/SurgVU/models
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
 SEGDIR=$M/seg_vis
 TRKDIR=$M/track_vis
 DETOUT=$M/detector_seg
@@ -49,7 +49,7 @@ $PY $EXP/track_propagate.py --ckpt $CKPT --manifest $D/frame_manifest_full.csv \
 echo "=== (c) YOLO detector on seg pseudo-boxes (60 ep, heavy aug) ==="
 set +e
 $PY $EXP/train_detector.py --pseudo $SEGDIR/seg_pseudo_boxes.json --img_dir $SEGDIR \
-    --out_root $DETOUT --weights /scratch/sc20osc/AILET/from_pc/weights/yolo26m.pt \
+    --out_root $DETOUT --weights /scratch/USERNAME/AILET/from_pc/weights/yolo26m.pt \
     --epochs 60 --mosaic 1.0 --mixup 0.1 --hsv_h 0.015 --hsv_s 0.7 --hsv_v 0.4 \
     --degrees 5.0 --translate 0.1 --scale 0.5 --fliplr 0.5 2>&1 | tee -a $PARSE
 set -e

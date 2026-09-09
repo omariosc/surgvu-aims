@@ -177,9 +177,9 @@ def main():
     ap.add_argument("--batch", type=int, default=16)
     ap.add_argument("--per_class", type=int, default=900)
     ap.add_argument("--budget", type=int, default=6000)
-    ap.add_argument("--model", default="/scratch/sc20osc/AILET/from_pc/weights/yolo26m.pt")
-    ap.add_argument("--project", default="/scratch/sc20osc/miccai-2026/SurgVU/models/cat1_ssl")
-    ap.add_argument("--out_dir", default="/scratch/sc20osc/miccai-2026/SurgVU/logs/cat1_ssl")
+    ap.add_argument("--model", default="/scratch/USERNAME/AILET/from_pc/weights/yolo26m.pt")
+    ap.add_argument("--project", default="/scratch/USERNAME/miccai-2026/SurgVU/models/cat1_ssl")
+    ap.add_argument("--out_dir", default="/scratch/USERNAME/miccai-2026/SurgVU/logs/cat1_ssl")
     args = ap.parse_args()
     proposer = args.proposer or args.split
 

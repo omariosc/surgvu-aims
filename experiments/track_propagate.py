@@ -65,7 +65,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", required=True)
     ap.add_argument("--manifest", required=True)
-    ap.add_argument("--out_dir", default="/scratch/sc20osc/miccai-2026/SurgVU/models/track_vis")
+    ap.add_argument("--out_dir", default="/scratch/USERNAME/miccai-2026/SurgVU/models/track_vis")
     ap.add_argument("--n_windows", type=int, default=200)
     ap.add_argument("--window", type=int, default=8)        # frames per window
     ap.add_argument("--stride_sec", type=float, default=0.5)

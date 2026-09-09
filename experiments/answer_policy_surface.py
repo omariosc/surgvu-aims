@@ -33,7 +33,7 @@ import numpy as np
 import surgvu26_scorer as S
 
 OUT = os.environ.get(
-    "OUT", "/scratch/sc20osc/miccai-2026/SurgVU/models/answer_policy_surface.json")
+    "OUT", "/scratch/USERNAME/miccai-2026/SurgVU/models/answer_policy_surface.json")
 
 # Per-case ground-truth short answer and a plausible WRONG alternative of the same
 # lexical type. Wrong answers are deliberately *plausible* (the kind of error a real

@@ -25,7 +25,7 @@ real 2026 objective instead of the retired 2025 BLEU objective.
 import os
 import string
 
-os.environ.setdefault("HF_HOME", "/scratch/sc20osc/hf_cache")
+os.environ.setdefault("HF_HOME", "/scratch/USERNAME/hf_cache")
 
 import numpy as np
 
@@ -169,7 +169,7 @@ def score_pairs(candidates, references_list, with_nli=False):
 # Sample-set loader (the 11 public Cat-2 clips)
 # ---------------------------------------------------------------------------
 
-SAMPLE_DIR = "/scratch/sc20osc/miccai-2026/SurgVU/data"
+SAMPLE_DIR = "/scratch/USERNAME/miccai-2026/SurgVU/data"
 SAMPLE_CASES = [f"case{n}" for n in range(122, 133)]
 
 

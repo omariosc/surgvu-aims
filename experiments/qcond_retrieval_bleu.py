@@ -127,10 +127,10 @@ def predict_factory(ckpt, data_dir, n_dense, k, thr, pooling, cache, uniform=Fal
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt",
-                    default="/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt")
-    ap.add_argument("--data_dir", default="/users/sc20osc/SurgVU/data")
+                    default="/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt")
+    ap.add_argument("--data_dir", default="/users/USERNAME/SurgVU/data")
     ap.add_argument("--out",
-                    default="/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/qcond_retrieval.json")
+                    default="/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/qcond_retrieval.json")
     args = ap.parse_args()
 
     BASELINE = 0.7428  # uniform nf4_thr0.3_mean (job 6042378)

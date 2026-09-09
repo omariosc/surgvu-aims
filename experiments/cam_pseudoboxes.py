@@ -84,7 +84,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", required=True)
     ap.add_argument("--manifest", required=True)
-    ap.add_argument("--out_dir", default="/scratch/sc20osc/miccai-2026/SurgVU/models/cam_vis")
+    ap.add_argument("--out_dir", default="/scratch/USERNAME/miccai-2026/SurgVU/models/cam_vis")
     ap.add_argument("--n", type=int, default=40)
     ap.add_argument("--thr", type=float, default=0.4)
     args = ap.parse_args()

@@ -133,10 +133,10 @@ def ground_all(ckpt, data_dir, n_frames=4, thr=0.3, pool="mean"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt",
-                    default="/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt")
-    ap.add_argument("--data_dir", default="/users/sc20osc/SurgVU/data")
+                    default="/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt")
+    ap.add_argument("--data_dir", default="/users/USERNAME/SurgVU/data")
     ap.add_argument("--out",
-                    default="/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/canonical_layer.json")
+                    default="/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/canonical_layer.json")
     args = ap.parse_args()
 
     ROUTER_BASELINE = 0.7428

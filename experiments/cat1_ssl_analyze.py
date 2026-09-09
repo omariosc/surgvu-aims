@@ -43,9 +43,9 @@ from collections import defaultdict
 
 import numpy as np
 
-LOG_SWEEP = "/scratch/sc20osc/miccai-2026/SurgVU/logs/cat1_sweep"
-LOG_SSL = "/scratch/sc20osc/miccai-2026/SurgVU/logs/cat1_ssl"
-SSL = "/scratch/sc20osc/miccai-2026/SurgVU/data/cat1_ssl"
+LOG_SWEEP = "/scratch/USERNAME/miccai-2026/SurgVU/logs/cat1_sweep"
+LOG_SSL = "/scratch/USERNAME/miccai-2026/SurgVU/logs/cat1_ssl"
+SSL = "/scratch/USERNAME/miccai-2026/SurgVU/data/cat1_ssl"
 
 
 def load(p):

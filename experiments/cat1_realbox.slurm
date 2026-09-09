@@ -6,18 +6,18 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
 #SBATCH --time=08:00:00
-#SBATCH --output=/users/sc20osc/SurgVU/experiments/logs/c1real_%j.out
-#SBATCH --error=/users/sc20osc/SurgVU/experiments/logs/c1real_%j.out
+#SBATCH --output=/users/USERNAME/SurgVU/experiments/logs/c1real_%j.out
+#SBATCH --error=/users/USERNAME/SurgVU/experiments/logs/c1real_%j.out
 
 set -uo pipefail
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
 export YOLO_OFFLINE=1
 export OMP_NUM_THREADS=4
 
-PY=/scratch/sc20osc/surgvu_env/bin/python
-cd /users/sc20osc/SurgVU/experiments
+PY=/scratch/USERNAME/surgvu_env/bin/python
+cd /users/USERNAME/SurgVU/experiments
 
 echo "=== SurgVU Cat-1: detector trained on REAL HUMAN BOXES, video-disjoint ==="
 echo "Weak Grad-CAM pipeline scores mAP=0.000 on this same GT (boxes 7.2x too large by"
@@ -28,7 +28,7 @@ date
 $PY cat1_realbox_train.py \
   --train_videos 1 2 3 4 5 \
   --val_videos 6 7 \
-  --model /scratch/sc20osc/AILET/from_pc/weights/yolo26m.pt \
+  --model /scratch/USERNAME/AILET/from_pc/weights/yolo26m.pt \
   --epochs 60 --imgsz 640 --batch 16
 
 echo "DONE $(date)"

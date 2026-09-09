@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=80G
 #SBATCH --time=16:00:00
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder12_%j.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder12_%j.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder12_%j.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder12_%j.err
 # NO mail directives (self-monitored). NEW LEVER -- bipolar<-cadiere HARD-PAIR head.
 # Targets the #1 spine confusion (per_class_diag bipolar<-cadiere n=1106; the case124
 # Cat-2 error "The forceps type is bipolar forceps", BLEU 0.537). Adds a confusable-pair
@@ -17,17 +17,17 @@
 #   else the look-alike confusion is encoder-capacity-bound (escalate backbone), not a
 #   loss-term gap. Same train budget as the grid (5 ep / 150k frames) -- relative signal.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
 MAN=$D/frame_manifest_full.csv
-OUT=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_hardpair
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
-BASE=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/per_class_diag.json
+OUT=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_hardpair
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
+BASE=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/per_class_diag.json
 
 echo "=== node $(hostname) ==="; nvidia-smi -L
 cd $EXP

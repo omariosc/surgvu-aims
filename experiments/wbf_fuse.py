@@ -116,7 +116,7 @@ def main():
     ap.add_argument("--weights", required=True)            # trained detector best.pt
     ap.add_argument("--yolo_ds", required=True)            # train_detector's yolo_ds (val split)
     ap.add_argument("--ckpt", required=True)               # spine for the tracking source
-    ap.add_argument("--out", default="/scratch/sc20osc/miccai-2026/SurgVU/models/wbf_fusion.json")
+    ap.add_argument("--out", default="/scratch/USERNAME/miccai-2026/SurgVU/models/wbf_fusion.json")
     ap.add_argument("--seg_conf", type=float, default=0.10)
     ap.add_argument("--max_tools", type=int, default=3)
     ap.add_argument("--det_w", type=float, default=2.0)    # WBF weights: detector vs tracker

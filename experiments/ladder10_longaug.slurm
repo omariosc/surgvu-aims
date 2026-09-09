@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=12
 #SBATCH --mem=64G
 #SBATCH --time=12:00:00
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder10_%j.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder10_%j.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder10_%j.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder10_%j.err
 # LEVER 2 (longer schedule + heavier augmentation, at the best existing CAM thr 0.5,
 # yolo26m = best plain-detect cached). ladder8 trends were both monotone up (cleaner
 # boxes + bigger YOLO) => detector not saturated. yolo26m is the LARGEST plain-detect
@@ -18,22 +18,22 @@
 #   REFUTED: detector capacity/schedule is NOT the wall, localisation supervision
 #   (Grad-CAM pseudo-boxes) is.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-export YOLO_CONFIG_DIR=/scratch/sc20osc/hf_cache/ultralytics
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
+export YOLO_CONFIG_DIR=/scratch/USERNAME/hf_cache/ultralytics
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
 
 THR=0.5
-YOLO=/scratch/sc20osc/AILET/from_pc/weights/yolo26m.pt
+YOLO=/scratch/USERNAME/AILET/from_pc/weights/yolo26m.pt
 YTAG=$(basename $YOLO .pt)
 CELL="thr${THR}_${YTAG}_long120aug"
-CAM=/scratch/sc20osc/miccai-2026/SurgVU/models/cam_thr${THR}
-OUT=/scratch/sc20osc/miccai-2026/SurgVU/models/detector_$CELL
-PARSE=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder10_${SLURM_JOB_ID}.parse
+CAM=/scratch/USERNAME/miccai-2026/SurgVU/models/cam_thr${THR}
+OUT=/scratch/USERNAME/miccai-2026/SurgVU/models/detector_$CELL
+PARSE=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder10_${SLURM_JOB_ID}.parse
 
 echo "=== node $(hostname)  cell=$CELL ==="; nvidia-smi -L
 cd $EXP

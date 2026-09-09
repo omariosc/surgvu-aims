@@ -31,7 +31,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import surgvu26_scorer as S
 
 OUT = os.environ.get(
-    "OUT", "/scratch/sc20osc/miccai-2026/SurgVU/models/metric_recalibration_2026.json"
+    "OUT", "/scratch/USERNAME/miccai-2026/SurgVU/models/metric_recalibration_2026.json"
 )
 
 # The 11 P0.2/V2 template-router answers that scored BLEU 0.9650 / V2 1.0000 offline.

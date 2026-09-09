@@ -19,8 +19,8 @@ full-scale macro-F1 auto-populates the playbook the moment it lands.
 
 Usage (SLURM gpu node — decode + forward pass needs a GPU):
   python diagnose_spine.py \
-      --ckpt /scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt \
-      --manifest /scratch/sc20osc/miccai-2026/SurgVU/data/frame_manifest_full.csv \
+      --ckpt /scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt \
+      --manifest /scratch/USERNAME/miccai-2026/SurgVU/data/frame_manifest_full.csv \
       --max_val 40000
 """
 import argparse, csv, json, os, sys, collections
@@ -52,9 +52,9 @@ def collect(model, dl, device):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt",
-                    default="/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/spine_best.pt")
+                    default="/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/spine_best.pt")
     ap.add_argument("--manifest",
-                    default="/scratch/sc20osc/miccai-2026/SurgVU/data/frame_manifest_full.csv")
+                    default="/scratch/USERNAME/miccai-2026/SurgVU/data/frame_manifest_full.csv")
     ap.add_argument("--max_val", type=int, default=40000)
     ap.add_argument("--bs", type=int, default=128)
     ap.add_argument("--workers", type=int, default=12)

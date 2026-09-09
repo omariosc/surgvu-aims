@@ -6,11 +6,11 @@
 #SBATCH --mem=80G
 #SBATCH --time=30:00:00
 #SBATCH --array=0-1
-#SBATCH --output=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder7_%A_%a.out
-#SBATCH --error=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder7_%A_%a.err
+#SBATCH --output=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder7_%A_%a.out
+#SBATCH --error=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder7_%A_%a.err
 # NO mail directives (self-monitored). NEW LEVER C (brief lever 2) -- STRONGER backbone +
 # LONGER schedule for the rare tools. Array of 2 cached backbones (verified loadable
-# offline from /scratch/sc20osc/hf_cache):
+# offline from /scratch/USERNAME/hf_cache):
 #   0 = convnextv2_tiny.fcmae_ft_in22k_in1k   (modern ConvNeXt, FCMAE+in22k pretrain)
 #   1 = tf_efficientnetv2_m.in21k_ft_in1k     (larger EffNetV2-M spine, 1280-d feats)
 # Both with focal(gamma=2) + balanced sampling (the established imbalance config) and a
@@ -18,22 +18,22 @@
 # KILL CRITERION: neither backbone beats spine_full's all14 macro-F1 by >=+0.02
 #   -> EfficientNetV2-S is already at the encoder frontier for this data -> escalate.
 set -e
-mkdir -p /scratch/sc20osc/miccai-2026/SurgVU/logs
-export HF_HOME=/scratch/sc20osc/hf_cache
-export TORCH_HOME=/scratch/sc20osc/hf_cache/torch
+mkdir -p /scratch/USERNAME/miccai-2026/SurgVU/logs
+export HF_HOME=/scratch/USERNAME/hf_cache
+export TORCH_HOME=/scratch/USERNAME/hf_cache/torch
 export OMP_NUM_THREADS=4
-PY=/scratch/sc20osc/surgvu_env/bin/python
-EXP=/users/sc20osc/SurgVU/experiments
-D=/scratch/sc20osc/miccai-2026/SurgVU/data
+PY=/scratch/USERNAME/surgvu_env/bin/python
+EXP=/users/USERNAME/SurgVU/experiments
+D=/scratch/USERNAME/miccai-2026/SurgVU/data
 MAN=$D/frame_manifest_full.csv
-RESULTS=/users/sc20osc/AUTONOMOUS_RESULTS.md
+RESULTS=/users/USERNAME/AUTONOMOUS_RESULTS.md
 
 BBS=(convnextv2_tiny.fcmae_ft_in22k_in1k tf_efficientnetv2_m.in21k_ft_in1k)
 BB=${BBS[$SLURM_ARRAY_TASK_ID]}
 TAG=$(echo $BB | cut -d. -f1)
-OUT=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_$TAG
-BASE_DIAG=/scratch/sc20osc/miccai-2026/SurgVU/models/spine_full/per_class_diag.json
-PARSE=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder7_${SLURM_JOB_ID}.parse
+OUT=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_$TAG
+BASE_DIAG=/scratch/USERNAME/miccai-2026/SurgVU/models/spine_full/per_class_diag.json
+PARSE=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder7_${SLURM_JOB_ID}.parse
 
 echo "=== node $(hostname)  backbone=$BB ==="; nvidia-smi -L
 cd $EXP
@@ -53,7 +53,7 @@ $PY $EXP/train_spine.py --manifest $MAN --epochs 12 --bs $BS --img_size 384 \
 echo "=== DIAGNOSE ($BB) ==="
 $PY $EXP/diagnose_spine.py --ckpt $OUT/spine_best.pt --manifest $MAN --max_val 40000 2>&1 | tee $PARSE
 
-CMP=/scratch/sc20osc/miccai-2026/SurgVU/logs/ladder7_${SLURM_JOB_ID}_cmp.py
+CMP=/scratch/USERNAME/miccai-2026/SurgVU/logs/ladder7_${SLURM_JOB_ID}_cmp.py
 cat > $CMP <<'PYEOF'
 import json, sys, os
 new_p, base_p, bb = sys.argv[1], sys.argv[2], sys.argv[3]

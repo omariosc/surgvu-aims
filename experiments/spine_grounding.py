@@ -132,7 +132,7 @@ if __name__ == "__main__":
     import argparse, json, glob, os
     ap = argparse.ArgumentParser()
     ap.add_argument("--ckpt", required=True)
-    ap.add_argument("--samples_dir", default="/users/sc20osc/SurgVU/data")
+    ap.add_argument("--samples_dir", default="/users/USERNAME/SurgVU/data")
     args = ap.parse_args()
     for d in sorted(glob.glob(os.path.join(args.samples_dir, "case*"))):
         cid = os.path.basename(d)

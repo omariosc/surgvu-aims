@@ -30,7 +30,7 @@ import shutil
 
 from train_spine import TOOLS
 
-CACHED_YOLO = "/scratch/sc20osc/AILET/from_pc/weights/yolo11n.pt"
+CACHED_YOLO = "/scratch/USERNAME/AILET/from_pc/weights/yolo11n.pt"
 
 
 def build_yolo_dataset(pseudo_json, img_dir, out_root, val_frac=0.2, seed=0):
@@ -85,9 +85,9 @@ def build_yolo_dataset(pseudo_json, img_dir, out_root, val_frac=0.2, seed=0):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--pseudo", default="/scratch/sc20osc/miccai-2026/SurgVU/models/cam_vis/pseudo_boxes.json")
-    ap.add_argument("--img_dir", default="/scratch/sc20osc/miccai-2026/SurgVU/models/cam_vis")
-    ap.add_argument("--out_root", default="/scratch/sc20osc/miccai-2026/SurgVU/models/detector")
+    ap.add_argument("--pseudo", default="/scratch/USERNAME/miccai-2026/SurgVU/models/cam_vis/pseudo_boxes.json")
+    ap.add_argument("--img_dir", default="/scratch/USERNAME/miccai-2026/SurgVU/models/cam_vis")
+    ap.add_argument("--out_root", default="/scratch/USERNAME/miccai-2026/SurgVU/models/detector")
     ap.add_argument("--epochs", type=int, default=40)
     ap.add_argument("--imgsz", type=int, default=640)
     ap.add_argument("--bs", type=int, default=32)

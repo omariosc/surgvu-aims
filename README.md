@@ -1,6 +1,8 @@
-# SurgVU 2026 · AIMS Lab
+# Presence-Filtered Self-Training for Instrument Detection and Template Answering with Tool Priors
 
-[Method report](paper/SurgVU_Report_AIMS.pdf) · [LaTeX source](paper/SurgVU_Report_AIMS.tex) · [Vector figure](paper/fig_method.pdf)
+SurgVU 2026 · AIMS Lab
+
+[Final LaTeX ZIP](paper/SurgVU_AIMS_LaTeX_Source_Final.zip) · [Method report](paper/SurgVU_Report_AIMS.pdf) · [LaTeX source](paper/SurgVU_Report_AIMS.tex) · [Vector figure](paper/fig_method.pdf)
 
 **Omar Choudhry**
 
@@ -38,7 +40,7 @@ A deterministic router selects one of three grammatical branches.
 
 The selected template reuses the question's wording in declarative order. Sentence length is variable.
 
-The entity prior comes from `tools.csv` installation intervals overlapping deduplicated `tasks.csv` segments across 155 training cases. The archived prior contains 1,850 segments. Each segment contributes once to the count for each installed commercial tool name. Within instrument family $f$, the selected name is
+The entity prior comes from `tools.csv` installation intervals overlapping deduplicated `tasks.csv` segments across 155 training cases. The tool prior contains 1,850 segments. Each segment contributes once to the count for each installed commercial tool name. Within instrument family $f$, the selected name is
 
 $$
 e_f^*=\underset{u\in\mathcal V_f}{\arg\max}\;\frac{1}{N}\sum_{j=1}^{N}\mathbf 1\{u\in S_j\},
@@ -80,4 +82,4 @@ SLURM scripts contain cluster-specific paths with the account name replaced by `
 
 ## Licence and funding
 
-Code is available under the [MIT licence](LICENSE). Challenge data and third-party software remain subject to their own terms. Funded by UKRI EPSRC grant EP/S024336/1.
+Code is available under the [MIT licence](LICENSE). Funded by UKRI EPSRC grant EP/S024336/1.
